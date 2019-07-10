@@ -1,11 +1,8 @@
 import React from "react";
+import TodoList from "./TodoList";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello world</h1>
-    </div>
-  );
+  return <TodoList />;
 }
 
 export default App;
