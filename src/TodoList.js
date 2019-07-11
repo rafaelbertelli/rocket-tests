@@ -6,15 +6,29 @@ export default class src extends Component {
     todos: []
   };
 
+  componentDidMount() {
+    const todos = localStorage.getItem("todos");
+
+    console.log(todos);
+    if (todos) {
+      this.setState({ todos: JSON.parse(todos) });
+    }
+  }
+
   handleInputChange = e => {
     this.setState({ newTodo: e.target.value });
   };
 
-  addTodo = () => {
-    this.setState({
-      todos: [...this.state.todos, this.state.newTodo],
-      newTodo: ""
-    });
+  handleAddTodo = () => {
+    this.setState(
+      {
+        todos: [...this.state.todos, this.state.newTodo],
+        newTodo: ""
+      },
+      () => {
+        localStorage.setItem("todos", JSON.stringify(this.state.todos));
+      }
+    );
   };
 
   render() {
@@ -31,7 +45,7 @@ export default class src extends Component {
             <li key={`${todo}+${index}`}>{todo}</li>
           ))}
         </ul>
-        <button onClick={this.addTodo}>Adicionar novo TODO</button>
+        <button onClick={this.handleAddTodo}>Adicionar novo TODO</button>
       </div>
     );
   }
